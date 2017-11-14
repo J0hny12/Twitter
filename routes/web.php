@@ -11,12 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/logout', 'HomeController@logout');
+
+
+
+Route::get('/dashboard', 'TweetsController@index');
+Route::get('/dashboard/create', 'TweetsController@create');
+Route::post('/dashboard/create', 'TweetsController@store');
+
+Route::get('/dashboard/{user}', 'TweetsController@showUserDashboard');

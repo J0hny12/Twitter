@@ -8,7 +8,7 @@
       <ul class="navbar-nav ml-auto">
         @if(Auth::check())
           <li class="nav-item">
-          <a class="nav-link" href="#">Nastenka</a>
+          <a class="nav-link" href="/dashboard">Dashboard</a>
         </li>
         <li class="dropdown nav-item">
           <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>

@@ -33,9 +33,9 @@ class User extends Authenticatable
         return $this->hasMany(Tweet::class);
     }
 
-    public function getId()
+    public function comments()
     {
-      return $this->id;
+        return $this->hasMany(Comment::class);
     }
 
 }

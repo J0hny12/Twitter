@@ -15,17 +15,20 @@ class TweetsController extends Controller
         $this->middleware('auth');
     }
 
-	public function index() 
+    public function showDashboard(User $user)
 	{
-		return redirect('/dashboard/'. Auth::id());
-	}
+		$tweets = Tweet::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+		$users = User::all();
 
-	public function create() 
+		return view('tweets.index', compact('tweets', 'users'));
+	}
+	
+	public function createTweet() 
 	{
 		return view('tweets.create');
 	}
 
-	public function store(Request $request)
+	public function storeTweet(Request $request)
 	{
 		$request->validate([
 			'title' => 'required',
@@ -38,18 +41,10 @@ class TweetsController extends Controller
 			'body' => request('body')
 		]);
 
-		return redirect('/dashboard');
-	}
+		return redirect('/dashboard/'.Auth::id());
+	}	
 
-	public function showUserDashboard(User $user)
-	{
-		$tweets = Tweet::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
-		$users = User::all();
-
-		return view('tweets.index', compact('tweets', 'users'));
-	}
-
-	public function delete(Tweet $tweet) 
+	public function deleteTweet(Tweet $tweet) 
 	{
 		if ($tweet->user_id == Auth::id()) {
 			$tweet->delete();
@@ -58,7 +53,7 @@ class TweetsController extends Controller
 		return back();
 	}
 
-	public function showEdit(Tweet $tweet) 
+	public function showUpdateTweet(Tweet $tweet) 
 	{
 		if (Auth::id() == $tweet->user_id) {
 			return view('tweets.update', compact('tweet'));
@@ -67,7 +62,7 @@ class TweetsController extends Controller
 		return back();
 	}
 
-	public function update(Tweet $tweet, Request $request) 
+	public function updateTweet(Tweet $tweet, Request $request) 
 	{
 		$request->validate([
 			'title' => 'required',
@@ -79,7 +74,7 @@ class TweetsController extends Controller
 			'body' => $request->body
 		]);
 
-		return redirect('/dashboard');
+		return redirect('/dashboard/'.Auth::id());
 	}
 
 }

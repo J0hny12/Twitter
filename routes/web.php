@@ -11,23 +11,20 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
-
 Route::get('/logout', 'HomeController@logout');
-Route::get('/dashboard', 'TweetsController@index');
-Route::get('/dashboard/create', 'TweetsController@create');
-Route::post('/dashboard/create', 'TweetsController@store');
-Route::get('/dashboard/update/{tweet}', 'TweetsController@showEdit');
-Route::post('/dashboard/update/{tweet}', 'TweetsController@update');
 
-Route::get('/dashboard/delete/{tweet}', 'TweetsController@delete');
-Route::get('/dashboard/{user}', 'TweetsController@showUserDashboard');
+Route::get('/dashboard/create', 'TweetsController@createTweet');
+Route::post('/dashboard/create', 'TweetsController@storeTweet');
+Route::get('/dashboard/update/{tweet}', 'TweetsController@showUpdateTweet');
+Route::post('/dashboard/update/{tweet}', 'TweetsController@updateTweet');
+Route::get('/dashboard/delete/{tweet}', 'TweetsController@deleteTweet');
+Route::get('/dashboard/{user}', 'TweetsController@showDashboard');
 
-Route::post('/comment/{tweet}', 'CommentsController@store');
-Route::get('/comment/delete/{comment}', 'CommentsController@delete');
+Route::post('/comment/{tweet}', 'CommentsController@storeComment');
+Route::get('/comment/delete/{comment}', 'CommentsController@deleteComment');
 
 Route::get('/settings', 'SettingsController@showSettings');
 Route::post('/settings', 'SettingsController@updateSettings');

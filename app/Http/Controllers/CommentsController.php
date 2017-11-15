@@ -15,7 +15,7 @@ class CommentsController extends Controller
         $this->middleware('auth');
     }
 
-	public function store(Tweet $tweet)
+	public function storeComment(Tweet $tweet)
 	{
 		Comment::create([
 			'user_id' => Auth::user()->id,
@@ -26,7 +26,7 @@ class CommentsController extends Controller
 		return back();
 	}
 
-	public function delete(Comment $comment)
+	public function deleteComment(Comment $comment)
 	{
 		if(Auth::id() == $comment->user_id) {
 			$comment->delete();

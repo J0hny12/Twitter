@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class CommentsController extends Controller
 {
     
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	public function store(Tweet $tweet)
 	{
-
 		Comment::create([
 			'user_id' => Auth::user()->id,
 			'tweet_id' => $tweet->id,
@@ -20,7 +24,15 @@ class CommentsController extends Controller
 		]);
 
 		return back();
+	}
 
+	public function delete(Comment $comment)
+	{
+		if(Auth::id() == $comment->user_id) {
+			$comment->delete();
+		}
+
+		return back();
 	}
 
 }

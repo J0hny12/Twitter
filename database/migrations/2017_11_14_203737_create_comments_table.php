@@ -16,9 +16,14 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('tweet_id');
+            $table->integer('tweet_id')->unsigned();
             $table->text('body');
             $table->timestamps();
+        });
+
+
+        Schema::table('comments', function($table) {
+           $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('cascade');
         });
     }
 

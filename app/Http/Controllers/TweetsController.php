@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class TweetsController extends Controller
 {
     
+        public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
 
 	public function index() 
 	{
@@ -43,6 +49,39 @@ class TweetsController extends Controller
 		$users = User::all();
 
 		return view('tweets.index', compact('tweets', 'users'));
+	}
+
+	public function delete(Tweet $tweet) 
+	{
+		if ($tweet->user_id == Auth::id()) {
+			$tweet->delete();
+		}		
+
+		return back();
+	}
+
+	public function showEdit(Tweet $tweet) 
+	{
+		if (Auth::id() == $tweet->user_id) {
+			return view('tweets.update', compact('tweet'));
+		}
+
+		return back();
+	}
+
+	public function update(Tweet $tweet, Request $request) 
+	{
+		$request->validate([
+			'title' => 'required',
+			'body' => 'required'
+		]);
+
+		$tweet->update([
+			'title' => $request->title,
+			'body' => $request->body
+		]);
+
+		return redirect('/dashboard');
 	}
 
 }

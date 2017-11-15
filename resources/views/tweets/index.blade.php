@@ -8,7 +8,16 @@
       @foreach($tweets as $tweet)
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="card-title">{{ $tweet->title }}</h2>
+          <div class="row">
+            <div class="col-md-10"><h2 class="card-title">{{ $tweet->title }}</h2></div>
+            <div class="col-md-2">
+              @if(Auth::user()->id == $tweet->user_id)
+                <a href="/dashboard/update/{{ $tweet->id }}">Edit</a>/
+                <a href="/dashboard/delete/{{ $tweet->id }}"><span style="color:red">Del</span></a>
+              @endif
+            </div>
+          </div>
+          
           <div class="text-muted">
             Pridane dna {{ $tweet->created_at->toFormattedDateString() }} od uzivatela
             <a href="#">{{ $tweet->user->name }}</a>
@@ -21,11 +30,16 @@
         <div class="card">
           <div class="card-block">
             <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-9">
             {{ $comment->body }}
             </div>
             <div class="col-md-2">
-            <a href="/dashboard/{{ $comment->user->id }}">{{ $comment->user->name }}</a>
+            <a href="/dashboard/{{ $comment->user->id }}">{{ $comment->user->name }}</a> 
+            </div>
+            <div class="col-md-1">
+              @if(Auth::user()->id == $comment->user_id)
+                <a href="/comment/delete/{{ $comment->id }}"><span style="color:red">Del</span></a>
+              @endif
             </div>
             </div>
           </div>
@@ -33,17 +47,15 @@
         @endforeach
 
         <br/>
-          <form class="col-md-11" method="POST" action="comment/{{ $tweet->id }}">
+          <form class="col-md-11" method="POST" action="/comment/{{ $tweet->id }}">
             {{ csrf_field() }}
             <div class="form-group">
-            <textarea type="text" name="body" id="body" placeholder="komentar" class="form-control"></textarea><br/>
-            <button type="submit" class="btn btn-sm btn-primary">Pridat</button>
+            <textarea type="text" name="body" id="body" placeholder="komentar" class="form-control" required></textarea><br/>
+            <button type="submit" class="btn btn-sm btn-primary">Pridat komentar</button>
             </div>
           </form>
         </div>
       </div>
-
-
       @endforeach
     </div>
 

@@ -26,5 +26,8 @@ Route::post('/dashboard/update/{tweet}', 'TweetsController@update');
 Route::get('/dashboard/delete/{tweet}', 'TweetsController@delete');
 Route::get('/dashboard/{user}', 'TweetsController@showUserDashboard');
 
-Route::post('comment/{tweet}', 'CommentsController@store');
-Route::get('comment/delete/{comment}', 'CommentsController@delete');
+Route::post('/comment/{tweet}', 'CommentsController@store');
+Route::get('/comment/delete/{comment}', 'CommentsController@delete');
+
+Route::get('/settings', 'SettingsController@showSettings');
+Route::post('/settings', 'SettingsController@updateSettings');

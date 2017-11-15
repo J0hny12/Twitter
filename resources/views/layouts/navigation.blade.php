@@ -13,7 +13,7 @@
         <li class="dropdown nav-item">
           <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Settings</a></li>
+            <li><a href="/settings">Settings</a></li>
             <li><a href="/logout">Log out</a></li>
           </ul>
         </li>

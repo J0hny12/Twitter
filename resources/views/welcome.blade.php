@@ -3,25 +3,8 @@
 @section('body')
   
   <div class="col-md-8">
-    <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <h1>Welcome to twitter</h1>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+    <h1 style="margin: 300px 0px">Welcome to twitter</h1>
+
   </div>
 @endsection
